@@ -1,7 +1,30 @@
-local maker = loadstring(game:HttpGet("https://github.com/slf0Dev/my-ui-library-making-utility/raw/main/InstanceMaker.lua"))();
-local make = maker.Instance
+local Module = {}
 
+function Module.Instance(instance : string,properties : table)
+	local Corner,Stroke
+	local CreatedInstance = Instance.new(instance)
 
+	for property,value in next,properties do
+		if tostring(property) ~= "CornerRadius" and tostring(property) ~= "Stroke" then
+			CreatedInstance[property] = value
+		elseif tostring(property) == "Stroke" then
+			Stroke = Instance.new("UIStroke",CreatedInstance)
+			Stroke.Name = "Stroke"
+			Stroke.Color = value["Color"]
+			Stroke.Thickness = value["Thick"]
+			Stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+			Stroke.Transparency = value["Transparency"]
+			Stroke.LineJoinMode = Enum.LineJoinMode.Round
+		elseif tostring(property) == "CornerRadius" then
+			Corner = Instance.new("UICorner",CreatedInstance)
+			Corner.CornerRadius = value
+		end
+	end
+
+	return CreatedInstance;
+end
+
+local make = Module.Instance
 
 local SupportedProperties = {
 	"TextTransparency"  , "ImageTransparency" , "BackgroundTransparency"
@@ -1152,7 +1175,7 @@ function Library.Main(...)
 
 
 					Slider.InputBegan:Connect(function(Pressed)
-						if Pressed.UserInputType == Enum.UserInputType.MouseButton1 then
+						if Pressed.UserInputType == Enum.UserInputType.MouseButton1 or Pressed.UserInputType == Enum.UserInputType.Touch then
 							Dragging = true
 							IsSliding = false
 							move(Pressed)
@@ -1160,7 +1183,7 @@ function Library.Main(...)
 					end)
 
 					Slider.InputEnded:Connect(function(Pressed)
-						if Pressed.UserInputType == Enum.UserInputType.MouseButton1 then
+						if Pressed.UserInputType == Enum.UserInputType.MouseButton1 or Pressed.UserInputType == Enum.UserInputType.Touch then
 							Dragging = false
 							IsSliding = false
 							move(Pressed)
@@ -1168,7 +1191,7 @@ function Library.Main(...)
 					end)
 
 					game:GetService("UserInputService").InputChanged:Connect(function(Pressed)
-						if Dragging and Pressed.UserInputType == Enum.UserInputType.MouseMovement then
+						if Dragging and (Pressed.UserInputType == Enum.UserInputType.MouseMovement or Pressed.UserInputType == Enum.UserInputType.Touch) then
 							move(Pressed)
 						end
 					end)
@@ -1477,5 +1500,4 @@ function Library.ChangeTheme()
 		end
 	end
 end
-
 return Library;
