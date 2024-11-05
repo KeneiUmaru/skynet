@@ -1164,7 +1164,7 @@ function Library.Main(...)
 						IsSliding = true;
 						local pos = UDim2.new(math.clamp((Pressed.Position.X - SliderCore.AbsolutePosition.X) / SliderCore.AbsoluteSize.X, 0, 1), 0, 1, 0)
 						local size = UDim2.new(math.clamp((Pressed.Position.X - SliderCore.AbsolutePosition.X) / SliderCore.AbsoluteSize.X, 0, 1), 0, 1, 0)
-						SliderProgress:TweenSize(size, "Out", "Quart", 0.2,true);
+						SliderProgress:TweenSize(size, "Out", "Quart", 0.5,true);
 						RealValue = (((pos.X.Scale * arg3) / arg3) * (arg3 - arg2) + arg2)
 						value = (arg4 and string.format("%.1f", tostring(RealValue))) or (math.floor(RealValue))
 						SliderValue.Text = tostring(value) .. " "
