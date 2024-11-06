@@ -1236,8 +1236,10 @@ function Library.Main(...)
 							end
 						end)
 					end
+					
+					local def = arg5 or arg2
 
-					for i,v in next,arg2 do
+					for i,v in next,def do
 						if v ~= nil then
 							addchoice(i,v)
 						elseif v == true or v == false then
