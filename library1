@@ -118,6 +118,7 @@ function Library:CreateWindow(title, gameName, intro)
 			v:Destroy()
 		end
 	end
+
 	local themes = {
 		SchemaColor = Color3.fromRGB(79, 195, 247), -- Main Color
 		TextColor = Color3.fromRGB(255, 255, 255),
@@ -128,7 +129,7 @@ function Library:CreateWindow(title, gameName, intro)
 		Drop = Color3.fromRGB(28, 28, 28),
 		ScrollBar = Color3.fromRGB(149, 149, 149),
 		NotiBackground = Color3.fromRGB(0, 0, 0),
-		Logo = "rbxassetid://131437979560508"
+		Logo = "rbxassetid://122498268803150"
 	}
 	table.insert(Library, title)
 	function Library:SetTheme(theme, color3)
@@ -425,6 +426,37 @@ function Library:CreateWindow(title, gameName, intro)
 	end
 
 	Library:DraggingEnabled(Header, Container)
+	
+	local Skynet2077 = Instance.new("ScreenGui")
+	local main = Instance.new("Frame")
+	local ImageButton = Instance.new("ImageButton")
+	local UICorner = Instance.new("UICorner")
+	Skynet2077.Name = "Skynet 2077"
+	Skynet2077.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+	main.Name = "main"
+	main.Parent = Skynet2077
+	main.BackgroundColor3 = Color3.fromRGB(89, 176, 223)
+	main.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	main.BorderSizePixel = 0
+	main.Position = UDim2.new(0.0500000007, 0, 0.300000012, 0)
+	main.Size = UDim2.new(0, 75, 0, 75)
+	main.Draggable = true
+
+	ImageButton.Parent = main
+	ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	ImageButton.BackgroundTransparency = 1.000
+	ImageButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	ImageButton.BorderSizePixel = 0
+	ImageButton.Size = UDim2.new(1, 0, 1, 0)
+	ImageButton.Image = "rbxassetid://122498268803150"
+
+	UICorner.CornerRadius = UDim.new(1, 1)
+	UICorner.Parent = main
+
+	ImageButton.MouseButton1Click:Connect(function()
+		Library:ToggleUI()
+	end)
 
 	LibraryGui.Name = GuiName
 	LibraryGui.Parent = CoreGui
@@ -2209,4 +2241,5 @@ function Library:CreateWindow(title, gameName, intro)
 	end
 	return Tabs
 end
+
 return Library
